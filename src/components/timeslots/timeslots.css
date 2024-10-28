@@ -1,0 +1,26 @@
+.time-slot-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .time-slot {
+    background-color: #4caf50;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 50px;
+  }
+  
+  .time-slot.booked {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

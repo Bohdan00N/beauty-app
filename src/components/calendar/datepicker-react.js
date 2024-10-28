@@ -15,7 +15,7 @@ function AirDatepickerReact(props) {
     dp.current.update({ ...props });
   }, [props]);
 
-  return <input ref={$input} />;
+  return <input ref={$input} className="input-date"/>;
 }
 
 export default AirDatepickerReact;
