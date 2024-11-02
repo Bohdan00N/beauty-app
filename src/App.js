@@ -1,10 +1,14 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import BookingForm from "./components/bookingForm/bookingForm";
-
+import AppRoutes from "./utils/routes/route";
+import Header from "./components/header/header";
 function App() {
   return (
-    <div className="App">
-      <BookingForm />
+    <div className="pw">
+      <Router>
+        <Header />
+        <AppRoutes />
+      </Router>
     </div>
   );
 }

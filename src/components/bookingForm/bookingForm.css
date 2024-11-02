@@ -1,97 +1,114 @@
-  .booking-container {
-    background-color:  rgb(244, 193, 193);
-    padding: 20px;
-    margin: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-  } 
-  
-  h1 {
-    text-align: center;
-    margin: 0 0 25px 0;
-  }
+.booking-container {
+  background-color: rgb(244, 193, 193);
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 400px;
+}
 
-  label, p, h3 {
-    display: flex;
-    margin: 10px 5px 5px;
-    font-size: 18px;
-    font-weight: 700;
-  }
-  
-  input, select, textarea {
-    width: 100%;
-    color: rgb(147, 138, 138);
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-  
-input:focus, select:focus, textarea:focus {
+.formh1 {
+  background-color: rgb(244, 193, 193, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  font-size: 40px;
+  text-align: center;
+  padding: 5px;
+  margin: 20px auto;
+  color: rgb(239, 81, 231);
+}
+
+label,
+p,
+h3 {
+  display: flex;
+  margin: 10px 5px 5px;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgb(47, 129, 72);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  color: rgb(147, 138, 138);
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
   border-color: #66afe9;
   outline: none;
   box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
 }
-input::placeholder{
+input::placeholder {
   color: rgb(147, 138, 138);
 }
-  button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  .time-slot-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2px;
-    padding: 10px;
-  }
-  .book_button{
-    width: 30%;
-    background-color: rgb(229, 128, 128);
-    margin-top: 10px;
-  }
-  .book_button:hover{
-    background-color: rgb(207, 98, 98);
-  }
-  .time-slot {
-    background-color: rgb(80, 200, 120);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 50px;
-  }
-  .time-slot.selected{
-    background-color: #45a049;
-  }
-  .time-slot.booked {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  .calendar[type="text"] {
-    height: 32px;
-    border-radius: 4px;
-    box-shadow: none;
-    border: 1px solid rgb(95, 95, 95);
-    padding: 0 6px;
-  }
- 
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.bookForm .book_button {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+button:hover {
+  background-color: #45a049;
+}
+.time-slot-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px;
+}
+.book_button {
+  width: 30%;
+  background-color: rgb(229, 128, 128);
+  margin-top: 10px;
+}
+.book_button:hover {
+  background-color: rgb(207, 98, 98);
+}
+.time-slot {
+  background-color: rgb(80, 200, 120);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 50px;
+}
+.time-slot.selected {
+  background-color: #45a049;
+}
+.time-slot.booked {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.calendar[type="text"] {
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: none;
+  border: 1px solid rgb(95, 95, 95);
+  padding: 0 6px;
+}

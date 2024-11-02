@@ -5,3 +5,12 @@
   justify-content: center;
 }
 
+.pw {
+  background-image: url("./images/back.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}

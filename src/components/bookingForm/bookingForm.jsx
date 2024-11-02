@@ -77,8 +77,8 @@ const BookingForm = () => {
 
   return (
     <div className="booking-container">
-      <h1>Онлайн запис</h1>
-      <form id="booking-form">
+      <h1 className="formh1">Онлайн запис</h1>
+      <form id="booking-form" className="bookForm">
         <label htmlFor="service">Послуга:</label>
         <select
           id="service"

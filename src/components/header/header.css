@@ -1,0 +1,22 @@
+.block {
+  background-color: rgba(10, 87, 46, 0.2); 
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.list {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: rgb(239, 81, 231);
+  font-weight: 700;
+  font-size: 18px;
+}
+li:first-child{
+  margin-right:30px;
+}
