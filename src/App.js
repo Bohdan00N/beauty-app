@@ -1,12 +1,10 @@
-import './App.css';
-import BookingForm from './components/bookingForm/bookingForm';
+import "./App.css";
+import BookingForm from "./components/bookingForm/bookingForm";
 
 function App() {
   return (
     <div className="App">
-      
-    <BookingForm/>
-      
+      <BookingForm />
     </div>
   );
 }

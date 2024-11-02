@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Calendar from "../calendar/calendar";
 import "./bookingForm.css";
-
+import localeUk from "air-datepicker/locale/uk";
+import AirDatepickerReact from "../../utils/datepicker-react";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import db from "../../firebaseConfig";
 
@@ -10,6 +10,7 @@ const BookingForm = () => {
   const [bookedSlots, setBookedSlots] = useState([]);
   const [service, setService] = useState("");
   const [master, setMaster] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState(null);
 
   // Генерация слотов времени
@@ -29,26 +30,48 @@ const BookingForm = () => {
     return timeSlots;
   };
 
+  // Форматирование даты
+  const formatDate = (date) =>
+    new Intl.DateTimeFormat("uk-UA", { day: "numeric", month: "long", year: "numeric" }).format(date);
+
+  const handleDateChange = async (date) => {
+    if (date instanceof Date && !isNaN(date)) {
+      setSelectedDate(date);
+      const formattedDate = formatDate(date);
+      const querySnapshot = await getDocs(collection(db, "bookedSlots"));
+      const bookedTimes = querySnapshot.docs
+        .map((doc) => doc.data())
+        .filter((doc) => doc.date === formattedDate)
+        .map((doc) => doc.time);
+      setBookedSlots(bookedTimes);
+    }
+  };
+
   useEffect(() => {
     setSlots(generateTimeSlots());
-
-    const fetchBookedSlots = async () => {
-      const querySnapshot = await getDocs(collection(db, "bookedSlots"));
-      const bookedTimes = querySnapshot.docs.map((doc) => doc.data().time);
-      setBookedSlots(bookedTimes);
-    };
-
-    fetchBookedSlots();
   }, []);
 
+  // Збереження броні в базі даних
   const handleSlotClick = async () => {
-    if (selectedTime && !bookedSlots.includes(selectedTime)) {
+    if (service && master && selectedDate && selectedTime && !bookedSlots.includes(selectedTime)) {
+      const formattedDate = formatDate(selectedDate);
+      const formattedBooking = `${service} у майстра ${master} ${formattedDate} на ${selectedTime}`;
+      
       await addDoc(collection(db, "bookedSlots"), {
         service,
         master,
+        date: formattedDate,
         time: selectedTime,
       });
-      setBookedSlots([...bookedSlots, selectedTime]);
+
+      setBookedSlots([...bookedSlots, formattedBooking]);
+      alert(formattedBooking);
+      setService("");
+      setMaster("");
+      setSelectedDate(null);
+      setSelectedTime(null);
+    } else {
+      alert("Всі поля повинні бути заповнені");
     }
   };
 
@@ -59,10 +82,12 @@ const BookingForm = () => {
         <label htmlFor="service">Послуга:</label>
         <select
           id="service"
-          name="service"
+          value={service}
           onChange={(e) => setService(e.target.value)}
         >
-          <option value="">Выберите услугу</option>
+          <option value="" disabled hidden>
+            Оберіть послугу
+          </option>
           <option value="Манікюр">Манікюр</option>
           <option value="Педікюр">Педікюр</option>
           <option value="Массаж">Массаж</option>
@@ -71,51 +96,55 @@ const BookingForm = () => {
 
         <label htmlFor="master">Майстер:</label>
         <select
+          value={master}
           id="master"
-          name="master"
           onChange={(e) => setMaster(e.target.value)}
         >
-          <option value="">Выберите мастера</option>
+          <option value="" disabled hidden>
+            Оберіть майстра
+          </option>
           <option value="Марія">Марія</option>
           <option value="Катерина">Катерина</option>
           <option value="Віка">Віка</option>
           <option value="Сергій">Сергій</option>
         </select>
 
-        <Calendar />
+        <label htmlFor="date">Дата:</label>
+        <AirDatepickerReact
+          minDate={new Date()}
+          locale={localeUk}
+          value={selectedDate}
+          onDateChange={handleDateChange}
+          autoClose
+          isMobile
+          placeholder="Оберіть дату"
+        />
 
-        <div>
-          <h3>Выберите время:</h3>
-          <div className="time-slot-container">
-            {slots.map((time, index) => (
+        <h3>Оберіть час:</h3>
+        <div className="time-slot-container">
+          {slots.map((time, index) => {
+            const isBooked = bookedSlots.includes(time);
+            const isSelected = selectedTime === time;
+            const className = `time-slot ${isBooked ? "booked" : ""} ${isSelected ? "selected" : ""}`;
+
+            return (
               <button
                 type="button"
                 key={index}
-                className={`time-slot ${
-                  bookedSlots.includes(time) ? "booked" : ""
-                }`}
+                className={className}
                 onClick={() => setSelectedTime(time)}
-                disabled={bookedSlots.includes(time)}
+                disabled={isBooked}
               >
                 {time}
               </button>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
-        <button type="button" onClick={handleSlotClick}>
+        <button className="book_button" type="button" onClick={handleSlotClick}>
           Записатись
         </button>
       </form>
-
-      <div id="booking-list">
-        <h2>Записи:</h2>
-        <ul id="list">
-          {bookedSlots.map((slot, index) => (
-            <li key={index}>{slot}</li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };

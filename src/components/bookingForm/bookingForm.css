@@ -1,28 +1,45 @@
   .booking-container {
-    background-color: rgb(159, 150, 150);
+    background-color:  rgb(244, 193, 193);
     padding: 20px;
+    margin: 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 50%;
+    width: 80%;
   } 
   
   h1 {
     text-align: center;
+    margin: 0 0 25px 0;
+  }
+
+  label, p, h3 {
+    display: flex;
+    margin: 10px 5px 5px;
+    font-size: 18px;
+    font-weight: 700;
   }
   
-  label, p {
-    display: block;
-    margin: 10px 0 5px;
-  }
-  
-  select, input {
+  input, select, textarea {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
+    color: rgb(147, 138, 138);
+    padding: 10px;
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
   
+input:focus, select:focus, textarea:focus {
+  border-color: #66afe9;
+  outline: none;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+}
+input::placeholder{
+  color: rgb(147, 138, 138);
+}
   button {
     width: 100%;
     padding: 10px;
@@ -40,12 +57,19 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 2px;
     padding: 10px;
   }
-  
+  .book_button{
+    width: 30%;
+    background-color: rgb(229, 128, 128);
+    margin-top: 10px;
+  }
+  .book_button:hover{
+    background-color: rgb(207, 98, 98);
+  }
   .time-slot {
-    background-color: #4caf50;
+    background-color: rgb(80, 200, 120);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -56,51 +80,18 @@
     border-radius: 5px;
     width: 50px;
   }
-  
+  .time-slot.selected{
+    background-color: #45a049;
+  }
   .time-slot.booked {
     background-color: #ccc;
     cursor: not-allowed;
   }
-  
-/*   
-  #booking-result {
-    margin-top: 20px;
-    text-align: center;
-  }
-  .calendar-container {
-    width: 300px;
-    margin: 0 auto;
-  }
-  .time-slots {
-    margin-top: 20px;
-  }
-  .time-slots h2 {
-    margin: 10px 0;
-  }
-  .time-slot-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  .time-slot-group button {
-    width: 60px;
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid #9f3e3e;
-    background-color: #12bd84;
-    cursor: pointer;
+  .calendar[type="text"] {
+    height: 32px;
     border-radius: 4px;
+    box-shadow: none;
+    border: 1px solid rgb(95, 95, 95);
+    padding: 0 6px;
   }
-  .time-slot-group button:hover {
-    background-color: #eaeaea;
-  }
-  .time-slot-group button.selected {
-    background-color: #4c59af;
-    color: rgb(0, 0, 0);
-  }
-  .time-slot-group button.booked {
-    background-color: #424450;
-    color: rgb(255, 255, 255);
-  }
-  
-   */
+ 
