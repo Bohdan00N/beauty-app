@@ -11,7 +11,6 @@ const Main = () => {
   return (
     <div className="maincont">
       <h1 className="mainh1">Beauty house Michelle</h1>
-      <div className=""></div>
       <button onClick={handleButton} className="mainbtn">
         Онлайн запис
       </button>

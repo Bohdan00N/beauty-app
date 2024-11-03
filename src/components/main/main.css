@@ -22,8 +22,8 @@
     color:  rgb(239, 81, 231);
     background: #6d7d7a;
     cursor: pointer;
-    position: relative;
-    z-index: 0;
+    /* position: relative; */
+    /* z-index: 1;  */
     border-radius: 10px;
     user-select: none;
     -webkit-user-select: none;

@@ -4,7 +4,7 @@ import AppRoutes from "./utils/routes/route";
 import Header from "./components/header/header";
 function App() {
   return (
-    <div className="pw">
+    <div className="container">
       <Router>
         <Header />
         <AppRoutes />

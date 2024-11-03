@@ -13,7 +13,6 @@ const BookingForm = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState(null);
 
-  // Генерация слотов времени
   const generateTimeSlots = () => {
     const start = new Date();
     start.setHours(10, 0, 0, 0);
@@ -25,12 +24,11 @@ const BookingForm = () => {
       timeSlots.push(
         start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
       );
-      start.setMinutes(start.getMinutes() + 15);
+      start.setMinutes(start.getMinutes() + 30);
     }
     return timeSlots;
   };
 
-  // Форматирование даты
   const formatDate = (date) =>
     new Intl.DateTimeFormat("uk-UA", { day: "numeric", month: "long", year: "numeric" }).format(date);
 
