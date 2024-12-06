@@ -30,7 +30,7 @@ function AirDatepickerReact({ onDateChange, value, ...props }) {
     }
   }, [props, onDateChange, value]);
   
-  return <input ref={$input} placeholder="Оберіть дату" className="calendar" />;
+  return <input ref={$input} placeholder="Обрати дату" className="calendar" />;
 }
 
 export default AirDatepickerReact;

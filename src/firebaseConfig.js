@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -10,7 +11,16 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
+
+
+
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const authentication = getAuth(app);
+
+authentication.settings.appVerificationDisabledForTesting = true;
+
 
 export default db;
+export { authentication };

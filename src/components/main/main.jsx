@@ -5,7 +5,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   const handleButton = () => {
-    navigate("booking");
+    navigate("/booking");
   };
 
   return (

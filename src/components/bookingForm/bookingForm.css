@@ -1,11 +1,13 @@
 .booking-container {
-  background-color: rgb(244, 193, 193);
+  background-color: #f06292;
   padding: 15px;
   margin: 20px auto;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 80%;
   max-width: 400px;
+  overflow-y: auto;
+  margin-bottom: 100px;
 }
 
 .formh1 {
@@ -15,7 +17,10 @@
   text-align: center;
   padding: 5px;
   margin: 10px auto;
-  color: rgb(239, 81, 231);
+  color: #0d3f36;
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 label,
@@ -25,90 +30,302 @@ h3 {
   margin: 10px 5px 5px;
   font-size: 18px;
   font-weight: 700;
-  color: rgb(47, 129, 72);
+  /* color: #0d3f36; */
+  color: #fff;
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-input,
-select,
-textarea {
+.input-field,
+.calendar {
   width: 100%;
   color: rgb(147, 138, 138);
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+  border: none;
+  border-radius: 3px;
   box-sizing: border-box;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  outline: none;
+}
+.input-field {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #004d40;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.input-field:focus {
+  border-color: #00695c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: #66afe9;
-  outline: none;
-  box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+.input-field::placeholder {
+  color: #888888; 
+  font-style: italic;
 }
-input::placeholder {
-  color: rgb(147, 138, 138);
-}
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+
 .bookForm .book_button {
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-button:hover {
-  background-color: #45a049;
-}
+
 .time-slot-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2px;
-  padding: 10px;
+  gap: 7px;
+  padding-bottom: 10px;
+  margin-top: 20px;
 }
+
 .book_button {
   width: 30%;
-  background-color: rgb(229, 128, 128);
+  background-color: #0d3f36;
   margin-top: 10px;
+  color: #f06292;
+  font-weight: bold;
+  width: 170px;
+  text-transform: uppercase;
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
+
 .book_button:hover {
-  background-color: rgb(207, 98, 98);
+  scale: 1.1;
 }
+
 .time-slot {
-  background-color: rgb(80, 200, 120);
+  background-color: #0d3f36;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #ffd4e0;
   border: none;
   cursor: pointer;
   border-radius: 5px;
   width: 50px;
+  min-height: 30px;
+  font-size: 13px;
+  transition: all 0.3s ease;
 }
+
 .time-slot.selected {
-  background-color: #45a049;
+  scale: 1.2;
+  border: 2px solid #ffd4e0;
+  font-size: 14px;
+}
+.time-slot:hover {
+  scale: 1.2;
+  border: 2px solid #ffd4e0;
+  font-size: 14px;
 }
 .time-slot.booked {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
 .calendar[type="text"] {
   height: 32px;
   border-radius: 4px;
   box-shadow: none;
   border: 1px solid rgb(95, 95, 95);
   padding: 0 6px;
+}
+.calendar {
+  background-color: #ffd4e0;
+  color: #4a4a4a;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  max-width: 85%;
+  text-align: center;
+}
+.calendar::placeholder {
+  text-align: center;
+  color: #4a4a4a;
+}
+.time-pick {
+  color: #0d3f36;
+}
+.cont {
+  width: 90%;
+  max-width: 400px;
+  min-height: 200px;
+  padding: 10px;
+  max-height: fit-content;
+  margin: 20px auto;
+  display: block;
+  border: 1px solid #d9d9d9;
+  background-color: #f06292;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2),
+    inset 0 0 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.btnBack {
+  max-width: 100px;
+  color: rgba(0, 168, 107, 0.5);
+  background-color: transparent;
+  padding: 15px;
+  border: none;
+  font-family: "Georgia", serif;
+}
+.btnNext {
+  background-color: rgb(13, 63, 54);
+  color: #ffd4e0;
+  padding: 5px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 3px solid #ffd4e0;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btnNext:active {
+  background-color: #00332c;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+.btnNext:hover {
+  background-color: #00332c;
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+.btnNext:disabled {
+  cursor: not-allowed;
+  display: none;
+}
+.page {
+  font-family: "Georgia", serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+  background-color: transparent;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.btn_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page h2 {
+  font-size: 28px;
+  text-align: center;
+  color: #444;
+  margin: 0;
+  padding: 0;
+}
+
+.card_list {
+  width: 280px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  overflow: hidden;
+  text-align: center;
+}
+
+.card_item {
+  margin: 0 0 10px 0;
+  padding: 10px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  background: #f9f9f9;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #0d3f36;
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+.card_item:last-child {
+  margin: 0;
+}
+.card_description {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #0d3f36;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+
+  max-height: fit-content;
+  opacity: 1;
+}
+
+.toggle-btn {
+  margin-top: 10px;
+  background-color: transparent;
+  color: #555;
+  border: 1px solid rgba(0, 168, 107, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  max-width: fit-content;
+  align-self: center;
+  display: block;
+  text-align: center;
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.select-btn {
+  margin-left: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.last_check {
+  display: flex;
+  align-items: start;
+  line-height: 1.1;
+  flex-wrap: wrap;
+  border: 1px solid rgba(113, 37, 62, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+}
+.last_check .btnNext {
+  margin: 20px auto;
+  border: none;
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: rgb(13, 63, 54);
 }

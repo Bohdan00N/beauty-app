@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import "./header.css";
-import logo from "../../images/logo.svg";
+import geo_icon from "../../images/geo_icon.svg";
+import instagram from "../../images/instagram.svg";
+// import logo from "../../images/logo.svg";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
   return (
     <div className="block">
       <div className="logo">
-        <a href="/">
-          {" "}
-          <img src={logo} alt="Logo" />
+        <a  href="/home">
+          <p className="logo-text">M</p>
         </a>
       </div>
+      {/* <img src={logo} alt="Logo" /> */}
+      {/* <p>{userCredential?.user?.phoneNumber}</p> */}
       {/* <ul className="list">
         <li>
           <a href="/">Команда</a>
@@ -26,15 +28,34 @@ const Header = () => {
           <a href="/">Контакти</a>
         </li>
       </ul> */}
-      <div className={`burger-icon ${isOpen ? "open" : ""}`} onClick={toggleMenu}>
+      <div
+        className={`burger-icon ${isOpen ? "open" : ""}`}
+        onClick={toggleMenu}
+      >
         <span></span>
         <span></span>
         <span></span>
       </div>
       <nav className={`menu ${isOpen ? "open" : ""}`}>
-        <a href="#home">Команда</a>
-        <a href="#services">Послуги</a>
-        <a href="#contact">Контакти</a>
+        <a className='a_list' href="/services">Послуги</a>
+        <a className='a_list' href="/team">Команда</a>
+        <a className='a_list' href="/portfolio">Портфоліо</a>
+        <a className='a_list' href="/contacts">Контакти</a>
+          <p className="phone_num">Телефон для запису: <span><a className='tel' href="tel:+380996888282" aria-label="Зателефонувати за номером +38 099 688 82 82">+38 099 688 82 82</a></span></p>
+        <ul className="icons_container">
+          <li className="icons">
+            <p className="p">Інстаграм</p>
+            <a className='img_a' href="https://www.instagram.com/beauty.house.michelle">
+              <img src={instagram} alt="Instagram" />
+            </a>
+          </li>
+          <li className="icons">
+          <p className="p">Геопозиція</p>
+            <a className='img_a' href="https://maps.app.goo.gl/s5ZPLJvvmkDoQAsU6">
+              <img src={geo_icon} alt="Geo" />
+            </a>
+          </li>
+        </ul>
       </nav>
     </div>
   );
