@@ -39,6 +39,7 @@ h3 {
 
 .input-field,
 .calendar {
+background-color: #ffd4e0;
   width: 100%;
   color: rgb(147, 138, 138);
   padding: 5px;
@@ -59,7 +60,6 @@ h3 {
   width: 100%;
   padding: 10px 15px;
   font-size: 1rem;
-  border: 2px solid #004d40;
   border-radius: 8px;
   outline: none;
   transition: all 0.3s ease;
@@ -70,7 +70,7 @@ h3 {
 }
 
 .input-field::placeholder {
-  color: #888888; 
+  color: #888888;
   font-style: italic;
 }
 
@@ -328,4 +328,11 @@ h3 {
   font-weight: 700;
   font-size: 20px;
   background-color: rgb(13, 63, 54);
+}
+.finalCheck {
+  gap: 10px;
+  color: #ffd4e0;
+}
+.finalCheck_name{
+  width: 5.5em;
 }

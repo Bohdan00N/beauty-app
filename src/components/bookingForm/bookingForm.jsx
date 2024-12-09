@@ -9,6 +9,7 @@ const BookingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [base, setBase] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
   const [selectedProcedure, setSelectedProcedure] = useState(null);
   const [selectedMaster, setSelectedMaster] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
@@ -23,6 +24,7 @@ const BookingForm = () => {
       const DT = doc(db, "staff", "personnel");
       const docSnap = await getDoc(DT);
       if (docSnap.exists()) {
+        console.log("Дані з Firestore:", docSnap.data());
         setBase(docSnap.data());
       }
     };
@@ -37,23 +39,38 @@ const BookingForm = () => {
     setCurrentStep(2);
   };
 
+  const handleSubcategorySelect = (subcategoryKey) => {
+    setSelectedSubcategory(subcategoryKey);
+    setCurrentStep(3);
+    console.log("base:", base);
+    console.log("selectedCategory:", selectedCategory);
+    console.log("selectedSubcategory:", selectedSubcategory);
+  };
+
   const handleProcedureSelect = (procedureKey) => {
     setSelectedProcedure(procedureKey);
-    setCurrentStep(3);
+    setCurrentStep(4);
   };
 
   const handleMasterSelect = (masterName) => {
     setSelectedMaster(masterName);
-    setCurrentStep(4);
+    setCurrentStep(5);
   };
-
   const handleSubmit = async () => {
+    const formatDate = (date) => {
+      return new Intl.DateTimeFormat("uk-UA", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(new Date(date));
+    };
+    const formattedDate = formatDate(selectedDate);
     try {
       const bookingRef = collection(db, "bookings");
       await addDoc(bookingRef, {
         procedureName: selectedProcedure,
         master: selectedMaster,
-        date: selectedDate,
+        date: formattedDate,
         time: selectedTime,
         clientName,
         clientPhone,
@@ -62,6 +79,7 @@ const BookingForm = () => {
       alert("Запис успішний!");
       setCurrentStep(1);
       setSelectedCategory(null);
+      setSelectedSubcategory(null);
       setSelectedProcedure(null);
       setSelectedMaster("");
       setSelectedDate("");
@@ -73,11 +91,25 @@ const BookingForm = () => {
       alert("Помилка. Спробуйте ще раз.");
     }
   };
-  const getProceduresForCategory = (category, base) => {
-    const procedures = {};
+  const getSubcategoryForCategory = (category, base) => {
+    const subcategories = {};
 
     if (base[category]) {
       Object.entries(base[category]).forEach(
+        ([subcategoryKey, subcategoryData]) => {
+          subcategories[subcategoryKey] = subcategoryData;
+        }
+      );
+    }
+
+    return subcategories;
+  };
+
+  const getProceduresForSubcategory = (category, subcategory, base) => {
+    const procedures = {};
+
+    if (base[category] && base[category][subcategory]) {
+      Object.entries(base[category][subcategory]).forEach(
         ([procedureKey, procedureData]) => {
           procedures[procedureKey] = {
             description: procedureData.description,
@@ -100,24 +132,38 @@ const BookingForm = () => {
           onSelect={handleCategorySelect}
         />
       )}
+
       {currentStep === 2 && selectedCategory && (
         <Step2
           className="page"
-          procedures={getProceduresForCategory(selectedCategory, base)}
+          subcategories={getSubcategoryForCategory(selectedCategory, base)}
+          onSelect={handleSubcategorySelect}
+        />
+      )}
+
+      {currentStep === 3 && selectedSubcategory && (
+        <Step3
+          className="page"
+          procedures={getProceduresForSubcategory(
+            selectedCategory,
+            selectedSubcategory,
+            base
+          )}
           onSelect={handleProcedureSelect}
         />
       )}
-      {currentStep === 3 && selectedProcedure && (
-        <Step3
+
+      {currentStep === 4 && selectedProcedure && (
+        <Step4
           className="page"
-          base={base}
-          selectedCategory={selectedCategory}
-          selectedProcedure={selectedProcedure}
+          procedure={
+            base[selectedCategory]?.[selectedSubcategory]?.[selectedProcedure]
+          }
           onSelect={handleMasterSelect}
         />
       )}
-      {currentStep === 4 && selectedMaster && (
-        <Step4
+      {currentStep === 5 && selectedMaster && (
+        <Step5
           className="page"
           slots={slots}
           setSlots={setSlots}
@@ -131,8 +177,8 @@ const BookingForm = () => {
           onBack={handlePreviousStep}
         />
       )}
-      {currentStep === 5 && selectedDate && selectedTime && (
-        <Step5
+      {currentStep === 6 && selectedDate && selectedTime && (
+        <Step6
           className="page"
           clientName={clientName}
           clientPhone={clientPhone}
@@ -193,7 +239,32 @@ const Step1 = ({ procedures, onSelect }) => {
   );
 };
 
-const Step2 = ({ procedures, onSelect }) => {
+const Step2 = ({ subcategories, onSelect }) => {
+  if (!subcategories || Object.keys(subcategories).length === 0) {
+    return <p>Немає доступних підкатегорій для обраної категорії.</p>;
+  }
+  const sortedSubcategories = Object.keys(subcategories).sort((a, b) =>
+    a.localeCompare(b, "uk-UA")
+  );
+
+  return (
+    <div className="page">
+      <h2>Оберіть підкатегорію</h2>
+      <ul className="card_list">
+        {sortedSubcategories.map((subcategoryKey) => (
+          <li
+            className="card_item"
+            key={subcategoryKey}
+            onClick={() => onSelect(subcategoryKey)}
+          >
+            {subcategoryKey}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+const Step3 = ({ procedures, onSelect }) => {
   const [openCards, setOpenCards] = useState({});
 
   const toggleDescription = (event, procedureKey) => {
@@ -205,11 +276,15 @@ const Step2 = ({ procedures, onSelect }) => {
   };
 
   if (!procedures || Object.keys(procedures).length === 0) {
-    return <p>Немає доступних процедур для обраної категорії.</p>;
+    return <p>Немає доступних процедур для обраної підкатегорії.</p>;
   }
+
+  console.log("Процедури для вибраної підкатегорії:", procedures);
+
   const sortedProcedures = Object.keys(procedures).sort((a, b) =>
     a.localeCompare(b, "uk-UA")
   );
+
   return (
     <div className="page">
       <h2>Оберіть процедуру</h2>
@@ -227,7 +302,7 @@ const Step2 = ({ procedures, onSelect }) => {
               <strong>{procedureKey}</strong>
               {isOpen && (
                 <p className="card_description">
-                  {procedure.description} ({procedure.duration},{" "}
+                  {procedure.description} ({procedure.duration} хвилин,{" "}
                   {procedure.price} грн)
                 </p>
               )}
@@ -245,15 +320,16 @@ const Step2 = ({ procedures, onSelect }) => {
   );
 };
 
-const Step3 = ({ base, selectedCategory, selectedProcedure, onSelect }) => {
-  const procedure = base[selectedCategory]?.[selectedProcedure];
-
+const Step4 = ({ procedure, onSelect }) => {
   if (!procedure || !procedure.masters) {
+    console.error("Майстри не знайдені:", procedure);
     return <p>Немає доступних майстрів для обраної процедури.</p>;
   }
+
   const availableMasters = [...procedure.masters].sort((a, b) =>
     a.localeCompare(b, "uk-UA")
   );
+
   return (
     <div className="page">
       <h2>Оберіть майстра</h2>
@@ -274,7 +350,7 @@ const Step3 = ({ base, selectedCategory, selectedProcedure, onSelect }) => {
   );
 };
 
-const Step4 = ({
+const Step5 = ({
   slots,
   setSlots,
   selectedDate,
@@ -370,16 +446,7 @@ const Step4 = ({
   );
 };
 
-const Step5 = ({
-  clientName,
-  clientPhone,
-  setClientName,
-  setClientPhone,
-  onNext,
-}) => {
-  const isPhoneValid = (phone) => {
-    return /^\+?380\d{9}$/.test(phone) || /^0\d{9}$/.test(phone);
-  };
+const Step6 = ({ clientName, clientPhone, setClientName, setClientPhone }) => {
   const handleNameChange = (e) => {
     const input = e.target.value;
     const capitalizedName = input.charAt(0).toUpperCase() + input.slice(1);
@@ -405,14 +472,9 @@ const Step5 = ({
         placeholder="Ваш номер телефону"
         value={clientPhone}
         onChange={handlePhoneChange}
+        minLength={10}
+        maxLength={13}
       />
-      <button
-        className="btnNext"
-        onClick={onNext}
-        disabled={!clientName || !isPhoneValid(clientPhone)}
-      >
-        Продовжити
-      </button>
     </div>
   );
 };
@@ -433,17 +495,23 @@ const Confirmation = ({
         year: "numeric",
       }).format(selectedDate)
     : "";
-
+  const isPhoneValid = (phone) => {
+    return /^\+?380\d{9}$/.test(phone) || /^0\d{9}$/.test(phone);
+  };
   return (
     <div className="page last_check">
       <h2>Підтвердження запису</h2>
-      <p className="finalCheck">Процедура: {selectedProcedure}</p>
-      <p className="finalCheck">Майстер: {selectedMaster}</p>
-      <p className="finalCheck">Дата: {formattedDate}</p>
-      <p className="finalCheck">Час: {selectedTime}</p>
-      <p className="finalCheck">Ваше ім'я: {clientName}</p>
-      <p className="finalCheck">Ваш номер телефону: {clientPhone}</p>
-      <button className="btnNext" onClick={onSubmit}>
+      <p className="finalCheck"> <strong className="finalCheck_name">Процедура:</strong> {selectedProcedure}</p>
+      <p className="finalCheck"><strong className="finalCheck_name">Майстер:</strong> {selectedMaster}</p>
+      <p className="finalCheck"><strong className="finalCheck_name">Дата:</strong> {formattedDate}</p>
+      <p className="finalCheck"><strong className="finalCheck_name">Час:</strong> {selectedTime}</p>
+      <p className="finalCheck"><strong className="finalCheck_name">Ваше ім'я:</strong> {clientName}</p>
+      <p className="finalCheck"><strong className="finalCheck_name">Номер телефону:</strong> {clientPhone}</p>
+      <button
+        className="btnNext"
+        onClick={onSubmit}
+        disabled={!clientName || !isPhoneValid(clientPhone)}
+      >
         Підтвердити
       </button>
     </div>

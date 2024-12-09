@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import MainPage from "../../pages/MainPage";
 import BookingForm from "../../components/bookingForm/bookingForm";
 import ContactPage from "../../pages/ContactPage/ContactPage";
-// import Test from "../../components/bookingForm/test";
+// import {Test} from '../../components/bookingForm/test'
 const AppRoutes = () => {
   return (
     <Routes>
