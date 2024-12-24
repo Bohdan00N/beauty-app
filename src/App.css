@@ -1,12 +1,30 @@
 .container {
-  background-image: url("./images/back.jpeg");
+  background-image: url("./images/ba_mobile.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-color: #00a86b; */
-  /* background-color: rgba(0, 168, 107, 0.5); */
-  /* background-color: rgb(22, 62, 71); */
   height: 100vh;
   width: 100vw;
-  overflow: auto;
+  /* overflow: auto; */
+  overflow: hidden;
+}
+@media (min-width: 1200px) {
+  .container {
+    background-image: url("./images/ba.jpg");
+  }
+  .air-datepicker.-is-mobile-.-active-:not(.-custom-position-) {
+    transform: translate(-50%, -65%) !important;
+    width: 20% !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .air-datepicker.-is-mobile-.-active-:not(.-custom-position-) {
+    width: 40% !important;
+  }
+}
+.air-datepicker.-is-mobile-.-active-:not(.-custom-position-) {
+  transform: translate(-50%, -105%) !important;
+  z-index: 1000;
+  width: 80%;
+  height: 339px;
 }

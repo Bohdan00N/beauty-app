@@ -1,0 +1,112 @@
+.adminCont {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  gap: 10px;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgb(25, 172, 222);
+  padding: 20px;
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  margin: 40px auto;
+}
+.input {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+  border: none;
+}
+.input:focus {
+  border-color: #00695c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.input::placeholder {
+  color: #888888;
+  font-style: italic;
+}
+.btn {
+  margin: 20px auto;
+  min-height: 20px;
+  width: 110px;
+  border: 1px solid #f06292;
+  font-size: 18px;
+  outline: none;
+  color: #f06292;
+  background-color: rgb(173, 216, 230);
+  cursor: pointer;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  font-family: "Bespoke Stencil", sans-serif;
+  font-weight: 700;
+}
+.h1admin {
+  color: #fffbea;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  font-size: 25px;
+}
+.adminOpened {
+  background-color: lightblue;
+  height: 100%;
+  display: flex;
+  overflow-y: auto;
+}
+.adminUl {
+  list-style: none;
+  background-color: #f4c2c2;
+  border-right: 1px solid black;
+  height: 100%;
+  width: 80%;
+  padding: 10px;
+  margin: 0;
+  padding-top: 80px;
+}
+.adminLi {
+  margin: 0 0 15px 15px;
+  font-weight: 700;
+}
+.adminLi a {
+  color: #656665;
+  font-size: 26px;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .adminCont {
+    width: 40%;
+  }
+}
+@media (min-width: 1200px) {
+  .adminCont {
+    width: 30%;
+  }
+  .h1admin {
+    color: #f06292;
+    text-shadow: 2px 2px 0 rgba(96, 45, 45, 0.7);
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  .adminUl {
+    padding-top: 80px;
+  }
+  .adminLi {
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .adminLi a {
+    color: #656665;
+    font-size: 24px;
+  }
+  .adminLi a:hover {
+    color: rgb(90, 163, 187);
+    font-size: 24px;
+  }
+}

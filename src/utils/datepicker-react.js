@@ -3,7 +3,7 @@ import "air-datepicker/air-datepicker.css";
 
 import React, { useEffect, useRef } from "react";
 
-function AirDatepickerReact({ onDateChange, value, ...props }) {
+function AirDatepickerReact({ placeholder, onDateChange, value, ...props }) {
   const $input = useRef(null);
   const dp = useRef(null);
 
@@ -12,8 +12,8 @@ function AirDatepickerReact({ onDateChange, value, ...props }) {
       dp.current = new AirDatepicker($input.current, {
         ...props,
         onSelect: (fd) => {
-          if (fd && fd.date) { 
-            const selectedDate = fd.date; 
+          if (fd && fd.date) {
+            const selectedDate = fd.date;
             if (!isNaN(selectedDate.getTime())) {
               onDateChange(selectedDate);
             } else {
@@ -29,8 +29,8 @@ function AirDatepickerReact({ onDateChange, value, ...props }) {
       }
     }
   }, [props, onDateChange, value]);
-  
-  return <input ref={$input} placeholder="Обрати дату" className="calendar" />;
+
+  return <input ref={$input} placeholder={placeholder} className="calendar" />;
 }
 
 export default AirDatepickerReact;

@@ -10,7 +10,7 @@ const Main = () => {
 
   return (
     <div className="maincont">
-      <h1 className="mainh1">Beauty house Michelle</h1>
+      <h1 className="mainh1"><span className="span_main">Beauty house </span>Michelle</h1>
       <button onClick={handleButton} className="mainbtn">
         Онлайн запис
       </button>

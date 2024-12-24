@@ -19,12 +19,12 @@ const BookingForm = () => {
   const [slots, setSlots] = useState([]);
   const [bookedSlots, setBookedSlots] = useState([]);
   const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchData = async () => {
       const DT = doc(db, "staff", "personnel");
       const docSnap = await getDoc(DT);
       if (docSnap.exists()) {
-        console.log("Дані з Firestore:", docSnap.data());
         setBase(docSnap.data());
       }
     };
@@ -42,9 +42,6 @@ const BookingForm = () => {
   const handleSubcategorySelect = (subcategoryKey) => {
     setSelectedSubcategory(subcategoryKey);
     setCurrentStep(3);
-    console.log("base:", base);
-    console.log("selectedCategory:", selectedCategory);
-    console.log("selectedSubcategory:", selectedSubcategory);
   };
 
   const handleProcedureSelect = (procedureKey) => {
@@ -70,7 +67,7 @@ const BookingForm = () => {
       await addDoc(bookingRef, {
         procedureName: selectedProcedure,
         master: selectedMaster,
-        date: formattedDate,
+        date: selectedDate,
         time: selectedTime,
         clientName,
         clientPhone,
@@ -172,6 +169,7 @@ const BookingForm = () => {
           onSelectDate={setSelectedDate}
           onSelectTime={setSelectedTime}
           bookedSlots={bookedSlots}
+          selectedMaster={selectedMaster}
           setBookedSlots={setBookedSlots}
           onNext={handleNextStep}
           onBack={handlePreviousStep}
@@ -206,7 +204,9 @@ const BookingForm = () => {
       <div className="btn_div">
         {currentStep > 1 && (
           <button className="btnBack" onClick={handlePreviousStep}>
-            Назад
+            <div className="arrow-1">
+              <div></div>
+            </div>
           </button>
         )}
       </div>
@@ -216,7 +216,7 @@ const BookingForm = () => {
 
 const Step1 = ({ procedures, onSelect }) => {
   if (!procedures || Object.keys(procedures).length === 0) {
-    return <p>Завантаження...</p>;
+    return <div className="loader"></div>;
   }
   const sortedCategories = Object.keys(procedures).sort((a, b) =>
     a.localeCompare(b, "uk-UA")
@@ -279,7 +279,6 @@ const Step3 = ({ procedures, onSelect }) => {
     return <p>Немає доступних процедур для обраної підкатегорії.</p>;
   }
 
-  console.log("Процедури для вибраної підкатегорії:", procedures);
 
   const sortedProcedures = Object.keys(procedures).sort((a, b) =>
     a.localeCompare(b, "uk-UA")
@@ -310,7 +309,7 @@ const Step3 = ({ procedures, onSelect }) => {
                 className="toggle-btn"
                 onClick={(e) => toggleDescription(e, procedureKey)}
               >
-                {isOpen ? "Скрыть" : "Детальніше"}
+                {isOpen ? "Приховати" : "Детальніше"}
               </button>
             </li>
           );
@@ -322,7 +321,6 @@ const Step3 = ({ procedures, onSelect }) => {
 
 const Step4 = ({ procedure, onSelect }) => {
   if (!procedure || !procedure.masters) {
-    console.error("Майстри не знайдені:", procedure);
     return <p>Немає доступних майстрів для обраної процедури.</p>;
   }
 
@@ -355,6 +353,7 @@ const Step5 = ({
   setSlots,
   selectedDate,
   selectedTime,
+  selectedMaster,
   onSelectDate,
   onSelectTime,
   bookedSlots,
@@ -388,13 +387,18 @@ const Step5 = ({
           month: "long",
           year: "numeric",
         }).format(date);
-
-        const querySnapshot = await getDocs(collection(db, "bookedSlots"));
+  
+        const querySnapshot = await getDocs(collection(db, "bookings"));
+  
         const bookedTimes = querySnapshot.docs
           .map((doc) => doc.data())
-          .filter((doc) => doc.date === formattedDate)
+          .filter(
+            (doc) =>
+              doc.date === formattedDate && doc.master === selectedMaster
+          )
           .map((doc) => doc.time);
-
+  
+  
         setBookedSlots(bookedTimes || []);
       }
     } catch (error) {
@@ -402,6 +406,7 @@ const Step5 = ({
       setBookedSlots([]);
     }
   };
+  
 
   return (
     <div className="page">
@@ -413,8 +418,8 @@ const Step5 = ({
         onDateChange={handleDateChange}
         autoClose
         isMobile
-        placeholder="обрати дату"
         required
+        placeholder="Оберіть дату"
       />
       <div className="time-slot-container">
         {slots.map((time) => {
@@ -435,6 +440,7 @@ const Step5 = ({
           );
         })}
       </div>
+      
       <button
         className="btnNext"
         onClick={onNext}
@@ -501,12 +507,27 @@ const Confirmation = ({
   return (
     <div className="page last_check">
       <h2>Підтвердження запису</h2>
-      <p className="finalCheck"> <strong className="finalCheck_name">Процедура:</strong> {selectedProcedure}</p>
-      <p className="finalCheck"><strong className="finalCheck_name">Майстер:</strong> {selectedMaster}</p>
-      <p className="finalCheck"><strong className="finalCheck_name">Дата:</strong> {formattedDate}</p>
-      <p className="finalCheck"><strong className="finalCheck_name">Час:</strong> {selectedTime}</p>
-      <p className="finalCheck"><strong className="finalCheck_name">Ваше ім'я:</strong> {clientName}</p>
-      <p className="finalCheck"><strong className="finalCheck_name">Номер телефону:</strong> {clientPhone}</p>
+      <p className="finalCheck">
+        {" "}
+        <strong className="finalCheck_name">Процедура:</strong>{" "}
+        {selectedProcedure}
+      </p>
+      <p className="finalCheck">
+        <strong className="finalCheck_name">Майстер:</strong> {selectedMaster}
+      </p>
+      <p className="finalCheck">
+        <strong className="finalCheck_name">Дата:</strong> {formattedDate}
+      </p>
+      <p className="finalCheck">
+        <strong className="finalCheck_name">Час:</strong> {selectedTime}
+      </p>
+      <p className="finalCheck">
+        <strong className="finalCheck_name">Ваше ім'я:</strong> {clientName}
+      </p>
+      <p className="finalCheck">
+        <strong className="finalCheck_name">Номер телефону:</strong>{" "}
+        {clientPhone}
+      </p>
       <button
         className="btnNext"
         onClick={onSubmit}

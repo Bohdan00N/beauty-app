@@ -15,19 +15,17 @@ const Header = () => {
           <p className="logo-text">M</p>
         </a>
       </div>
-      {/* <img src={logo} alt="Logo" /> */}
-      {/* <p>{userCredential?.user?.phoneNumber}</p> */}
-      {/* <ul className="list">
+       <ul className="list">
         <li>
-          <a href="/">Команда</a>
+          <a href="/team">Команда</a>
         </li>
         <li>
-          <a href="/">Послуги</a>
+          <a href="/portfolio">Послуги</a>
         </li>
         <li>
-          <a href="/">Контакти</a>
+          <a href="/contacts">Контакти</a>
         </li>
-      </ul> */}
+      </ul> 
       <div
         className={`burger-icon ${isOpen ? "open" : ""}`}
         onClick={toggleMenu}
@@ -44,14 +42,14 @@ const Header = () => {
           <p className="phone_num">Телефон для запису: <span><a className='tel' href="tel:+380996888282" aria-label="Зателефонувати за номером +38 099 688 82 82">+38 099 688 82 82</a></span></p>
         <ul className="icons_container">
           <li className="icons">
-            <p className="p">Інстаграм</p>
             <a className='img_a' href="https://www.instagram.com/beauty.house.michelle">
+            <p className="p">Інстаграм</p>
               <img src={instagram} alt="Instagram" />
             </a>
           </li>
           <li className="icons">
-          <p className="p">Геопозиція</p>
             <a className='img_a' href="https://maps.app.goo.gl/s5ZPLJvvmkDoQAsU6">
+          <p className="p">Геопозиція</p>
               <img src={geo_icon} alt="Geo" />
             </a>
           </li>

@@ -4,11 +4,12 @@
 html,
 body {
   height: 100%;
+   width: 100%;
   overflow-x: hidden; 
   overflow-y: auto;
   -webkit-overflow-scrolling: touch; 
-  font-family: "Tenor Sans", sans-serif;
-  font-weight: 700;
+  font-family: "Bespoke Stencil", sans-serif;
+  font-weight: 400;
   font-style: normal;
   display: flex;
   justify-content: center;

@@ -1,44 +1,57 @@
 .maincont {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 80px;
   flex-direction: column;
+  overflow: hidden;
 }
 .mainh1 {
-  background-color: #0d3f36;
   text-shadow: 0 0 30px #f06292;
-  font-size: 55px;
+  font-size: 70px;
   margin: 20px auto;
   text-align: center;
   color: #f06292;
   width: 100%;
-  max-width: 700px;
-  border-radius: 4px;
-  font-family: "Great Vibes", cursive;
-  font-weight: 700;
-  font-style: normal;
+  max-width: 600px;
+  border-radius: 20px;
+  font-family: "Bespoke Stencil", sans-serif;
+  font-weight: 900;
+  font-style: italic;
   letter-spacing: 4px;
   padding: 15px;
+  line-height: 60px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(5px);
+  box-shadow: 0px 4px 10px rgba(17, 65, 43, 0.3); 
 }
 .mainbtn {
-  margin: 80px auto;
+  margin: 40px auto;
   min-height: 40px;
   width: 220px;
-  border: none;
-  font-size: 20px;
+  border: 1px solid #f06292;
+  font-size: 22px;
   outline: none;
   color: #f06292;
-  background: rgb(13, 63, 54);
+  background-color: rgba(13, 63, 54, 0.5);
   cursor: pointer;
   border-radius: 10px;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  font-family: "Tenor Sans", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+  font-family: "Bespoke Stencil", sans-serif;
+  font-weight: 900;
+  
 }
-
+.span_main {
+  font-family: "Bespoke Stencil", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 30px;
+}
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -58,4 +71,51 @@
 .mainbtn:active {
   transform: translateY(1px);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+/* --- Планшетная версия --- */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .maincont {
+    margin-top: 60px;
+  }
+
+  .mainh1 {
+    font-size: 80px;
+    max-width: 500px;
+    letter-spacing: 3px;
+    line-height: 70px;
+  }
+
+  .mainbtn {
+    width: 250px;
+    font-size: 26px;
+    padding: 5px;
+  }
+
+  .span_main {
+    font-size: 35px;
+  }
+}
+
+/* --- Десктопная версия --- */
+@media (min-width: 1200px) {
+  .maincont {
+    margin-top: 80px;
+  }
+
+  .mainh1 {
+    font-size: 90px;
+    max-width: 700px;
+    letter-spacing: 4px;
+    line-height: 80px;
+  }
+
+  .mainbtn {
+    width: 350px;
+    font-size: 32px;
+    padding: 5px;
+  }
+
+  .span_main {
+    font-size: 40px;
+  }
 }
