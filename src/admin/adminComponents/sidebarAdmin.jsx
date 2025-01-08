@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../adminPanel.css";
+import LogoutButton from "../auth/logout";
 export const SidebarAdmin = () => {
   const location = useLocation();
 
@@ -38,6 +39,7 @@ export const SidebarAdmin = () => {
           </Link>
         </li>
       </ul>
+      <LogoutButton/>
     </div>
   );
 };

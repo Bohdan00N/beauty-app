@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "./adminPanel.css";
 import { SidebarAdmin } from "./adminComponents/sidebarAdmin";
+import { useAuth } from "./auth/authContext";
 const AdminPanel = () => {
   const LOGIN = process.env.REACT_APP_LOGIN;
   const PASSWORD = process.env.REACT_APP_PASSWORD;
 
+  const { login: authenticate } = useAuth();
+
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState(""); 
 
   const submit = () => {
@@ -19,11 +22,12 @@ const AdminPanel = () => {
       setError("Неправильний пароль");
       return;
     }
-    setIsAuthenticated(true);
+    // setIsAuthenticated(true);
     setError("");
+    authenticate();
   };
 
-  if (!isAuthenticated) {
+  if (!authenticate) {
     return (
       <div className="adminCont">
         <h1 className="h1admin">Вхід у систему</h1>
